@@ -1,0 +1,25 @@
+name: windows-build
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run build.cmd
+        shell: cmd
+        run: build.cmd
+
+      - name: Upload artifact (Codex name)
+        uses: actions/upload-artifact@v4
+        with:
+          name: QuantDesk_DataHub_v1.2
+          path: |
+            **/QuantDesk_DataHub_v1.2_*.zip
+            **/*.zip
